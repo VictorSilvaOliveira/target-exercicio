@@ -1,0 +1,51 @@
+<div class="row">
+  <mat-form-field class="col-6">
+    <mat-label>Inicio do filtro</mat-label>
+    <input matInput [matDatepicker]="dataInicioPicker" [max]="dataFim" [(ngModel)]="dataInicio" (ngModelChange)="dataFilter()">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="dataInicioPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dataInicioPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="col-6">
+    <mat-label>Fim do filtro</mat-label>
+    <input matInput [matDatepicker]="dataFimPicker" [min]="dataInicio" [(ngModel)]="dataFim" (ngModelChange)="dataFilter()">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="dataFimPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dataFimPicker></mat-datepicker>
+  </mat-form-field>
+</div>
+<mat-list *ngIf="lancamentos$">
+  <mat-list-item *ngFor="let lancamento of lancamentos$ | async">
+    <div class="row"
+         [class]="{ 'cancelado': lancamento.status === Status.Cancelado}">
+
+      <span class="col-8 col-sm-4 properties">{{lancamento.descricao}}</span>
+      <time class="col-1 col-sm-3 properties">{{lancamento.data | date:'dd/MM/yyyy HH:mm:ss'}}</time>
+      <span class="col-1 col-sm-3 properties">{{lancamento.valor | currency:'BRL'}}</span>
+      <div class="col-1">
+        <button mat-mini-fab color="primary"
+                aria-label="Example icon button with a filter list icon"
+                *ngIf="lancamento.status !== Status.Cancelado && lancamento.avulso"
+                [routerLink]="['editar', lancamento.id]">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn"
+                aria-label="Example icon button with a filter list icon"
+                *ngIf="lancamento.status !== Status.Cancelado && lancamento.avulso"
+                (click)="cancelarLancamento(lancamento)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
+<div class="row">
+
+  <span class="col-8 col-sm-4 properties">Total</span>
+  <time class="col-1 col-sm-3 properties"></time>
+  <span class="col-1 col-sm-3 properties">{{total | currency:'BRL'}}</span>
+  <div class="col-1"></div>
+
+</div>
+  <mat-spinner *ngIf="!lancamentos$"></mat-spinner>

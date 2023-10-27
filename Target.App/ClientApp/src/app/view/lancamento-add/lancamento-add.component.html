@@ -1,0 +1,28 @@
+<form [formGroup]="lancamentoForm" (ngSubmit)="salvarLancamento()">
+  <mat-form-field>
+    <mat-label>Decrição</mat-label>
+    <input formControlName="descricao" matInput required [readonly]="id">
+    <mat-error *ngIf="descricao?.invalid">
+      Descrição é obrigatório
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Escolha uma data</mat-label>
+    <input matInput formControlName="data" [matDatepicker]="picker" #datat required [readonly]="!id">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker [disabled]="!id"></mat-datepicker>
+    <mat-error *ngIf="data?.invalid">
+      Data inválido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Valor</mat-label>
+    <span matTextPrefix>R$&nbsp;</span>
+    <input formControlName="valor" type="number" matInput required>
+    <mat-error *ngIf="valor?.invalid">
+      Valor inválido
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="lancamentoForm.invalid" >Salvar</button>
+</form>
