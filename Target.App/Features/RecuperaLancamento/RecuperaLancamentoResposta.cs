@@ -1,11 +1,10 @@
 ﻿using Target.App.Model;
 
-namespace Target.App.Features.RecuperaLancamento
-{
-    public class RecuperaLancamentoResposta
-    {
-        public IEnumerable<Lancamento> Lancamentos {  get; set; }
+namespace Target.App.Features.RecuperaLancamento;
 
-        public double Total { get; set; }
-    }
+public class RecuperaLancamentoResposta
+{
+    public IEnumerable<Lancamento> Lancamentos {  get; set; }
+
+    public double Total { get; set; }
 }

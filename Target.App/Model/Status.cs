@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 
-namespace Target.App
+namespace Target.App;
+
+public enum Status
 {
-    public enum Status
-    {
-        [Description("Válido")]
-        Valido,
-        [Description("Cancelado")]
-        Cancelado
-    }
+    [Description("Válido")]
+    Valido,
+    [Description("Cancelado")]
+    Cancelado
 }

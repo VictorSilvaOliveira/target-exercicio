@@ -1,7 +1,5 @@
-﻿namespace Target.App.Features.CancelarLancamento
+﻿namespace Target.App.Features.CancelarLancamento;
+public class CancelarLancamentoRequisicao
 {
-    public class CancelarLancamentoRequisicao
-    {
-        public Guid Id { get; internal set; }
-    }
+    public Guid Id { get; internal set; }
 }

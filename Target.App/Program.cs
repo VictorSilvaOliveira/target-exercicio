@@ -22,13 +22,6 @@ builder.Services.AddSingleton((options) =>
 
 builder.Services.AddScoped<LancamentoDbContext>();
 
-//builder.Services.AddScoped((options) =>
-//{
-//    var lancamentoDb = new LancamentoDBContext(options.GetService<DbContextOptions>());
-
-//    return lancamentoDb;
-//});
-
 builder.Services.AddScoped<IFeature<RecuperaLancamentoRequisicao, RecuperaLancamentoResposta>, RecuperaLancamento>();
 builder.Services.AddScoped<IFeature<DetalheLancamentoRequisicao, DetalheLancamentoResposta>, DetalheLancamento>();
 builder.Services.AddScoped<IFeature<AlterarLancamentoRequisicao, AlterarLancamentoResposta>, AlterarLancamento>();
@@ -42,9 +35,7 @@ builder.Services.AddSingleton<IMapper>((options) =>
     return mapper;
 });
 
-
-
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -58,12 +49,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html"); ;
+app.MapControllers();
 
 app.Run();

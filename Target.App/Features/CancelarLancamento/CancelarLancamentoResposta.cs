@@ -1,6 +1,4 @@
-﻿namespace Target.App.Features.CancelarLancamento
+﻿namespace Target.App.Features.CancelarLancamento;
+public class CancelarLancamentoResposta
 {
-    public class CancelarLancamentoResposta
-    {
-    }
 }

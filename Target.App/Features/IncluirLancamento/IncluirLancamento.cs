@@ -1,28 +1,26 @@
 ﻿using AutoMapper;
 using Target.App.Model;
 
-namespace Target.App.Features.IncluirLancamento
+namespace Target.App.Features.IncluirLancamento;
+public class IncluirLancamento : IFeature<IncluirLancamentoRequisicao, IncluirLancamentoResposta>
 {
-    public class IncluirLancamento : IFeature<IncluirLancamentoRequisicao, IncluirLancamentoResposta>
+    private readonly LancamentoDbContext _dbContext;
+    private readonly IMapper _mapper;
+
+    public IncluirLancamento(LancamentoDbContext dbContext, IMapper mapper)
     {
-        private readonly LancamentoDbContext _dbContext;
-        private readonly IMapper _mapper;
+        _dbContext = dbContext;
+        _mapper = mapper;
+    }
 
-        public IncluirLancamento(LancamentoDbContext dbContext, IMapper mapper)
-        {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
+    public IncluirLancamentoResposta Executa(IncluirLancamentoRequisicao request)
+    {
+        var lancamento = _mapper.Map<Lancamento>(request);
 
-        public IncluirLancamentoResposta Executa(IncluirLancamentoRequisicao request)
-        {
-            var lancamento = _mapper.Map<Lancamento>(request);
+        _dbContext.Lancamentos.Add(lancamento);
 
-            _dbContext.Lancamentos.Add(lancamento);
+        _dbContext.SaveChanges();
 
-            _dbContext.SaveChanges();
-
-            return _mapper.Map<IncluirLancamentoResposta>(lancamento);
-        }
+        return _mapper.Map<IncluirLancamentoResposta>(lancamento);
     }
 }

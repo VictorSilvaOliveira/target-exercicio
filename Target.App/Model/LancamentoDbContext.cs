@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Target.App.Model
+namespace Target.App.Model;
+
+public class LancamentoDbContext: DbContext
 {
-    public class LancamentoDbContext: DbContext
+
+    public LancamentoDbContext(DbContextOptions options) : base(options)
     {
 
-        public LancamentoDbContext(DbContextOptions options) : base(options)
-        {
-
-        }
-
-        public DbSet<Lancamento> Lancamentos { get; set; }
-
     }
+
+    public DbSet<Lancamento> Lancamentos { get; set; }
+
 }
